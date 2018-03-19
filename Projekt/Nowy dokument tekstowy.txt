@@ -1,0 +1,70 @@
+Kalendarz,kasa, statystyki np sprzedazy,i jakies wnioski z tego ,dochod(czy dluzny itp),koszyk. 
+Ocenia tabele tekst moduly przypadkow uzycia z opisami.
+Dzialy np sprzedazy ksiegowosci ktore sie przekladaja na moduly strukture oprogramowania.
+Historia p³atnoœci itp.
+30-50 pozycji w tabelce powinno byæ.
+
+
+Rozdzia³ 1  
+Uzasadnienie biznesowe   
+
+_______System_______
+Platforma dystrybucji cyfrowej, ³¹cz¹ca w sobie sprzeda¿ detaliczn¹ oraz bibliotekê aplikacji. Zapewnia bezpoœrednie po³¹czenie dewelopera z u¿ytkownikiem. Gwarantuje deweloperowi pe³ne wsparcie przy wydaniu aplikacji na platformie przy u¿yciu konta deweloperskiego. W celu u¿ytkownia platformy niezbêdne jest utworzenie konta deweloperskiego lub konta u¿ytkownika poprzez Rejestracjê do platformy a nastêpnie Zalogowanie siê. 
+Rejestracja - Rejestracja przebiega poprzez wype³nienie formularza danymi: login, email, has³o a tak¿e wybranie typu konta: deweloper, u¿ytkownik oraz wybrania domyœlnej waluty Portfela z trzech dostêpnych: PLN, EUR, USD. 
+Logowanie - Logowanie przebiega poprzez wype³nienie formularza danymi: login, has³o a tak¿e wybranie typu konta: deweloper, u¿ytkownik. 
+
+_______Deweloper_______
+Po zalogowaniu do panelu deweperskiego twórca ma do wyboru zak³adki: Lista - pozwalaj¹ca na wylistowanie wydanych ju¿ produktów; Dodaj - pozwalaj¹ca na dodanie produktu; Edytuj - pozwala zmieniæ ustawione wczeœniej opcje; Statystyki - pozwalaj¹ca na wyœwietlenie ogólnych statystyk sprzeda¿y; Wyp³aæ - pozwalaj¹ca na wyp³acenie pieniêdzy z Portfela. 
+
+Lista - System generuje listê produktów dodanych przez dewelopera i pozwala na edycjê lub wyœwietlenie statystyk wybranego. Edycja polega na ponownym wype³nieniu formularza z polami: cena i opis. Statystyki generowane s¹ dla wybranego z listy produktu i zawieraj¹ dziennn¹, miesieczn¹ lub roczn¹: iloœæ sprzeda¿y, dochód ze sprzeda¿y a tak¿e obecn¹ ocenê spo³ecznoœci. 
+
+Dodaj - Dodanie produktu przebiega poprzez wype³nienie formularza dostêpnego po zalogowaniu do panelu dewelopera. Dane jakie musi podaæ deweloper w formularzu to: Nazwa, Cena (w walucie domyœlnej) i Opis, a tak¿e za³¹czyæ plik wykonywalny. Opis zawiera opis dodany przez dewelopera a tak¿e ocenê spo³ecznoœci.
+
+Edytuj - Edytowanie produktu przebiega poprzez wype³nienie formularza z danymi: Cena (w walucie domyœlnej) i Opis.
+
+Statystyki - System generuje statystyki dotycz¹ce ogólnej sprzeda¿y. Statystki te zawieraja dziennn¹, miesieczn¹ lub roczn¹: iloœæ sprzeda¿y, dochód ze sprzeda¿y wszystkich produktów. Statyski te dostêpne s¹ tylko dla dewelopera. Deweloper uzyskuje do nich dostêp, z listy aktualnie wystawionych na sprzeda¿ produktów. Ka¿dy wystawiony produkt posiada w³asn¹ statystykê.
+
+Wyp³aæ - System wyœwietla aktualny stan portfela w domyœlnej walucie, a tak¿e pole formularza do podania kwoty ewentualnej wyp³aty i przycisk zatwierdzenia wyp³aty. 
+
+_______U¿ytkownik_______
+U¿ytkownik po zalogowaniu poprzez platformê posiada mo¿liwoœæ zakupu produktu, zainstalowania i zarz¹dzania nim, poprzez panel u¿ytkownika.   Po zalogowaniu , u¿ytkownik ma do wyboru trzy zak³adki: Biblioteka - lista obecnie posiadanych produktów; Sklep - lista produktów dostêpnch do zakupu; Do³aduj - pozwala na dodanie pieniêdzy do Portfela. 
+
+Biblioteka - System generuje listê zakupionych przez u¿ytkownika produktów z rozró¿nieniem na statusy: Niezainstalowane lub Zainstalowane. Przy produkcie o statusie Niezainstalowane widnieje opcja Zainstaluj. Przy produkcie o statusie Zainstalowane wideniej¹ opcje: W³¹cz, Odinstaluj, Oceñ. 
+
+Sklep - System generuje listê dostêpnych do zakupu produktów. Przy ka¿dym produkcie widniej¹ opcje: Kup, Cena, Opis. Opcja Cena jest przewalutowana do waluty domyœlnej u¿ytkownika, Opcja Opis zawiera w sobie opis dodany przez dewelopera,, a tak¿e ocenê spo³ecznoœci wystawiana przez u¿ytkowników. 
+
+Do³aduj - System wyœwietla aktualny stan portfela w domyœlnej walucie, a tak¿e pole formularza do podania kwoty ewentualnej wp³aty i przycisk zatwierdzenia wp³aty.
+ 
+
+_______Portfel_______
+Weryfikacja p³atnoœci - System weryfikuje czy U¿ytkownik posiada wystarczaj¹c¹ iloœæ œrodków w Portfelu, a tak¿e czy kupowany produkt nie znajduje sie ju¿ w Bibliotece u¿ytkownika. W przypadku braku przeciwskazañ do zakupu zatwierdza transakcjê. W przeciwnym razie odrzuca j¹ i wyœwietla odpowiedni komunikat.
+Weryfikacja do³adowania - System weryfikuje czy kwota zosta³a zaksiêgowana i odpowiada kwocie podanej przez U¿ytkownik. W przypadku poprawnego zaksiêgowania System do³adowuje Portfel i koñczy operacjê. W przeciwnym razie odrzuca j¹ i wyœwietla odpowiedni komunikat.
+Weryfikacja wyp³aty - System weryfikuje czy Deweloper posiada wystarczaj¹c¹ iloœæ œrodków w Portfelu.W przypadku braku przeciwskazañ do wyp³aty zatwierdza transakcjê. W przeciwnym razie odrzuca j¹ i wyœwietla odpowiedni komunikat.
+Przewalutowanie - System dostosowuje ceny produktów w Sklepie do domyœlnej waluty u¿ytkownika. 
+Do³adowanie portfela - System dodaje odpowiedni¹ iloœc pieniêdzy do portfela po pozytywnym przejœciu weryfikacji do³adowania. 
+Wyp³acenie z portfela - System odejmuje odpowiedni¹ iloœc pieniêdzy z portfela po pozytywnym przejœciu weryfikacji wyp³aty.
+
+_______Baza danych_______
+Pobierz produkty - system wysy³a zapytanie do bazy danych o listê konkrenych produktów. 
+Dodaj produkt do systemu - system dodaje do bazy danych nowy produkt. 
+Dodaj konto - system dodaje do bazy danych nowe konto. 
+Dodaj produkt do konta - system przypisuje do konkretnego konta dany produkt. 
+Pobierz konto - system wysy³a zapytanie do bazy danych o informacje o koncie.
+
+
+_____System c.d._______
+Wyœwietlanie komunikatu - system generuje stosowny komunikat do wykonanej akcji. 
+Weryfikacja zalogowania - system weryfikuje poprawnoœæ danych logowania. Po poprawnej weryfikacji loguje do odpowiedniego panelu, w przeciwnym razie przerywa akcje i wyœwietla stosowny komunikat. 
+Wylistowanie - system listuje pobrane z bazy danych produkty w zale¿noœci od wybranej opcji: Sklep, Biblioteka, Lista.
+
+   Przyk³adowe scenariusze 
+
+Zakup produktu 
+U¿ytkownik po w³¹czeniu aplikacji loguje siê do Panelu U¿ytkownika wczeœniej utworzonym kontem. Prze³¹cza na zak³adkê Sklep, wyszukuje interesuj¹cy go produkt, a nastêpnie wybiera opcjê Kup. Po poprawnym zweryfikowaniu p³atnoœci, produkt zostaje do³¹czony do biblioteki u¿ytkownika ze statusem gotowoœci do zainstalowania. W przypadku negatywnego zweryfikowania p³atnoœci spowodowanego brakiem pieniêdzy w portfelu lub posiadaniem ju¿ danego produktu w bibliotece, operacja zostaje przerwana i wyœwietlony zostaje odpowiedni komunikat.
+    
+Dodanie produktu 
+Deweloper po w³¹czeniu aplikacji loguje siê do Panelu Dewelopera wczeœniej utworzonym kontem. Prze³¹cza na zak³adkê Dodaj, a nastêpnie wype³nia formularz, w którym podaje: nazwê produktu, cenê, opis a tak¿e wgrywa koñcowy produkt. Po zatwierdzeniu, produkt pojawia sie w Sklepie, dostêpny do zakupu przez u¿ytkownika.  
+   
+Wyp³acenie œrodków z portfela
+Deweloper po w³¹czeniu aplikacji loguje siê do Panelu Dewelopera wczeœniej utworzonym kontem. Prze³¹cza na zak³adkê Wyp³aæ, a nastepnie w polu formularza
+ wprowadza kwotê pieniêdzy i zatwierdza przyciskiem. Je¿eli w portfelu jest wystarczaj¹ca iloœæ œrodków weryfikacja wyp³aty koñczy siê powodzeniem, œrodki zostaj¹ wyp³acone, a Portfel zostaje pomniejszony o podan¹ kwotê. W przeciwnym razie   operacja zostaje przerwana i wyœwietlony zostaje odpowiedni komunikat.
