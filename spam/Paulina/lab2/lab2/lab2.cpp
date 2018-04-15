@@ -3,8 +3,11 @@
 
 void podaj_dane(int *a, int *b, int *c, int *d)
 {
-	printf("Podaj dane w kolejnosci a,b,c,d ");
-	scanf_s("%d, %d, %d, %d", &a, &b, &c, &d);
+	printf("Podaj a: ");	scanf_s("%d", a);
+	printf("Podaj b: ");	scanf_s("%d", b);
+	printf("Podaj c: ");	scanf_s("%d", c);
+	printf("Podaj d: ");	scanf_s("%d", d);
+	printf("\n");
 }
 void formatuj_rnie(int a, int b, int c, int d)
 {
@@ -14,51 +17,218 @@ void formatuj_rnie(int a, int b, int c, int d)
 	if (d<0) printf("%di ", d); else  printf("+%di ", d);
 }
 
+// oblicz delte rzeczywista
 float oblicz_d_r(int a, int b, int c) 
 {
-	return b*b - 4 * a*c;
+	return (float)b*b - 4 * a*c;
 }
 
+//oblicz delte urojona
 float oblicz_d_u(int a, int d) 
 {
-	return (-4.0*a*d)*(-4.0*a*d);
+	return (float)-4.0*a*d;
 }
 
+//oblicz pierwiastek z delty rzeczywistej
 float oblicz_p_d_r(float delta_r, float delta_u)
 {
-	return sqrt((sqrt(delta_r*delta_r + delta_u*delta_u) + delta_u)/2);
+	return sqrt((sqrt(delta_r*delta_r + delta_u*delta_u) + delta_u)/2.0);
 }
 
 float oblicz_p_d_u(float delta_r, float delta_u) 
 {
-	return sqrt((sqrt(delta_r*delta_r + delta_u*delta_u) - delta_u) / 2);
+	return sqrt((sqrt(delta_r*delta_r + delta_u*delta_u) - delta_u) / 2.0);
 }
 
 void oblicz_rnie(int a, int b, int c, int d, float *x1r, float *x2r, float *x3r, float *x4r, float *x1u, float *x2u, float *x3u, float *x4u)
 {
-/*	x1r = (-1.0*b - pdelta_r) / (2.0*a);	 x1u = (-1 * pdelta_u) / (2.0*a);
-	x2r = (-1.0*b - pdelta_r) / (2.0*a);	 x2u = (pdelta_u) / (2.0*a);
-	x3r = (-1.0*b + pdelta_r) / (2.0*a);	 x3u = (pdelta_u) / (2.0*a);
-	x4r = (-1.0*b + pdelta_r) / (2.0*a);	 x4u = (-1 * pdelta_u) / (2.0*a);*/
+	if (a != 0 && d == 0)
+	{
+		float delta_r = oblicz_d_r(a, b, c);
+		//punkt 1.1
+		if (delta_r > 0)
+		{
+			*x1r = (float)(-b - sqrt(delta_r)) / (2.0f * a);
+			*x2r = (float)(-b + sqrt(delta_r)) / (2.0f * a);
+		}
+		//punkt 1.2
+		else if (delta_r == 0)
+		{
+			*x1r = (float)-b / (2.0f * a);
+		}
+		//punkt 1.3
+		else if (delta_r < 0)
+		{
+			*x1r = (float)-b / (2.0f * a);
+			*x1u = (float)-(sqrt(fabs(delta_r)) / (2.0f * a));
+			*x2r = *x1r;
+			*x2u = -*x1u;
+		}
+	}
+	//punkt 2
+	else if (a == 0 && b != 0 && d == 0)
+	{
+		*x1r = (float)-c / b;
+	}
+	//punkt 3
+	else if (a == 0 && b == 0 && (c != 0 || d != 0))
+	{
+		printf("Rownanie sprzeczne\n");
+	}
+	//punkt 4
+	else if (a == 0 && b == 0 && c == 0 && d == 0)
+	{
+		printf("Rownanie tozsamosciowe\n");
+	}
+	//punkt 5
+	else if (a == 0 && b != 0 && d != 0)
+	{
+		*x1r = (float)-c / b;
+		*x1u = (float)-d / b;
+	}
+	//punkt 6
+	else if (a != 0 && d != 0)
+	{
+		float delta_r = oblicz_d_r(a, b, c);
+		float delta_u = oblicz_d_u(a, d);
+		float pdelta_r = oblicz_p_d_r(delta_r, delta_u);
+		float pdelta_u = oblicz_p_d_u(delta_r, delta_u);
+		*x1r = (float)(-b - pdelta_r) / (2.0f * a);
+		*x2r = (float)(-b - pdelta_r) / (2.0f * a);
+		*x3r = (float)(-b + pdelta_r) / (2.0f * a);
+		*x4r = (float)(-b + pdelta_r) / (2.0f * a);
+		*x1u = (float)(-pdelta_u) / (2.0f * a);
+		*x2u = (float)(pdelta_u) / (2.0f * a);
+		*x3u = (float)(pdelta_u) / (2.0f * a);
+		*x4u = (float)(-pdelta_u) / (2.0f * a);
+	}
 
 }
 
 void dodaj(float delta_r, float delta_u, float *x1r, float *x2r, float *x3r, float *x4r, float *x1u, float *x2u, float *x3u, float *x4u, float *su, float*sr)
 {
+	//przypadek 1
+	if (delta_r > 0 && delta_u == 0)
+	{
+		*sr = *x1r + *x2r;
+	}
+	//przypadek 2
+	if (delta_r < 0 && delta_u == 0)
+	{
+		*sr = *x1r + *x2r;
+		*su = *x1u + *x2u;
+	}
+	//przypadek 3
+	if (delta_u)
+	{
+		*sr = *x1r + *x2r + *x3r + *x4r;
+		*su = *x1u + *x2u + *x3u + *x4u;
+	}
 }
 
 void odejmij(float delta_r, float delta_u, float *x1r, float *x2r, float *x3r, float *x4r, float *x1u, float *x2u, float *x3u, float *x4u, float *rr, float *ru)
 {
-	
+	//przypadek 1
+	if (delta_r > 0 && delta_u == 0)
+	{
+		*rr = *x1r - *x2r;
+	}
+	//przypadek 2
+	if (delta_r < 0 && delta_u == 0)
+	{
+		*rr = *x1r - *x2r;
+		*ru = *x1u - *x2u;
+	}
+	//przypadek 3
+	if (delta_u)
+	{
+		*rr = *x1r - *x2r - *x3r - *x4r;
+		*ru = *x1u - *x2u - *x3u - *x4u;
+	}
 }
 
 void pomnoz(float delta_r, float delta_u, float *x1r, float *x2r, float *x3r, float *x4r, float *x1u, float *x2u, float *x3u, float *x4u, float *ilr, float *ilu)
 {
+	//przypadek 1
+	if (delta_r > 0 && delta_u == 0)
+	{
+		*ilr = *x1r * (*x2r);
+	}
+	//przypadek 2
+	if (delta_r < 0 && delta_u == 0)
+	{
+		*ilr = *x1r**x2r - *x1u**x2u;
+		*ilu = *x1r**x2u + *x2r**x1u;
+	}
+	//przypadek 3
+	if (delta_u)
+	{
+		*ilr = (*x1r**x2r - *x1u**x2u)*(*x3r**x4r - *x3u**x4u) - (*x1r**x2u + *x2r**x1u)*(*x3r**x4r + *x4r**x3u);
+		*ilu = (*x1r**x2r - *x1u**x2u)*(*x3r**x4u + *x4r**x3u) + (*x3r**x4r - *x3u**x4u)*(*x1r**x2u + *x2r**x1u);
+	}
 }
 
-void wyswietl()
+void wyswietl(int a, int b, int c, int d, float x1r, float x2r, float x3r, float x4r, float x1u, float x2u, float x3u, float x4u, float sr, float su, float rr, float ru, float ilr, float ilu)
 {
-
+	float delta_r = oblicz_d_r(a, b, c);
+	float delta_u = oblicz_d_u(a, d);
+	//punkt 1
+	if (a != 0 && d == 0)
+	{
+		//punkt 1.1
+		if (delta_r > 0)
+		{
+			printf("x1r = %.2f\n", x1r);
+			printf("x2r = %.2f\n", x2r);
+		}
+		//punkt 1.2
+		else if (delta_r == 0)
+		{
+			printf("x1r = %.2f\n", x1r);
+		}
+		//punkt 1.3
+		else if (delta_r < 0)
+		{
+			printf("x1r = %.2f\n", x1r);
+			printf("x1u = %.2f\n", x1u);
+			printf("x2r = %.2f\n", x2r);
+			printf("x2u = %.2f\n", x2u);
+		}
+	}
+	//punkt 2
+	else if (a == 0 && b != 0 && d == 0)
+	{
+		printf("x1r = %.2f\n", x1r);
+	}
+	//punkt 5
+	else if (a == 0 && b != 0 && d != 0)
+	{
+		printf("x1r = %.2f\n", x1r);
+		printf("x1u = %.2f\n", x1u);
+	}
+	//punkt 6
+	else if (a != 0 && d != 0)
+	{
+		printf("\nx1r = %f \t x1u = %f", x1r, x1u);
+		printf("\nx2r = %f \t x2u = %f", x2r, x2u);
+		printf("\nx3r = %f \t x3u = %f", x3r, x3u);
+		printf("\nx4r = %f \t x4u = %f", x4r, x4u);
+	}
+	if (delta_r > 0 && d == 0 && a != 0)
+	{
+		printf("sr = %.2f\n", sr);
+		printf("rr = %.2f\n", rr);
+		printf("ilr = %.2f\n", ilr);
+	}
+	if ((delta_r < 0 && d == 0) || (a != 0 && d != 0))
+	{
+		printf("sr = %.2f\n", sr);
+		printf("su = %.2f\n", su);
+		printf("rr = %.2f\n", rr);
+		printf("ru = %.2f\n", ru);
+		printf("ilr = %.2f\n", ilr);
+		printf("ilu = %.2f\n", ilu);
+	}
 }
 
 int main()
@@ -69,150 +239,38 @@ int main()
 	//int a = 0, b = 1, c = -1, d = 0; //2) 
 	//int a = 0, b = 0, c = -1, d = 0; //3) 
 	//int a = 0, b = 0, c = 0, d = 0; //4) 
-	int a = 0, b = 5, c = 0, d = 5; //5) 
+	//int a = 0, b = 5, c = 0, d = 5; //5) 
 	//int a = 5, b = 0, c = 0, d = 5; //6) delta = -100i
 	//int a, b, c, d;
-	float delta_r, pdelta_r, delta_u, pdelta_u, x1r, x2r, x3r, x4r, x1u, x2u, x3u, x4u;
+	int a, b, c, d;
+	float delta_r = 0, delta_u = 0, x1r = 0, x2r = 0, x3r = 0, x4r = 0, x1u = 0, x2u = 0, x3u = 0, x4u = 0, pdelta_r = 0, pdelta_u = 0;
+	float sr = 0, su = 0, rr = 0, ru = 0, ilr = 0, ilu = 0;
 
-	//podaj_dane(a, b, c, d);
+	/*a = -2;
+	b = -3;
+	c = -4;
+	d = -5;
+	a = 0;
+	b = 4;
+	c = 40;
+	d = 20;*/
+	//1)  1,4,1,0
+	//    1,4,4,0
+	//    1,4,5,0
+	//2)  0,4,20,0
+	//3)  0,0,5,1
+	//4)  0,0,0,0
+	//5)  0,4,20,20
+	podaj_dane(&a, &b, &c, &d);
 	formatuj_rnie(a, b, c, d);
 	delta_r = oblicz_d_r(a, b, c);
 	delta_u = oblicz_d_u(a, d);
-	pdelta_r = oblicz_p_d_r(delta_r, delta_u);
-	pdelta_u = oblicz_p_d_u(delta_r, delta_u);
-
-	//1
-	if (a != 0 && d == 0)
-	{
-		delta_r = b*b - 4 * a*c;
-		// Pierwiastek
-		pdelta_r = 0.5*(delta_r + delta_r / delta_r);
-		pdelta_r = 0.5*(pdelta_r + (delta_r / pdelta_r));
-	skokPierwiastek:
-		pdelta_r = 0.5*(pdelta_r + (delta_r / pdelta_r));
-		if (0.5*(pdelta_r + (delta_r / pdelta_r)) - pdelta_r>0.001)
-		{
-			goto skokPierwiastek;
-		}
-		printf("\delta = %f", delta_r);
-		//1.1
-		if (delta_r > 0)
-		{
-			x1r = (-b - pdelta_r) / (2 * a);
-			x2r = (-b + pdelta_r) / (2 * a);
-			printf("\nx1r = %f", x1r);
-			printf("\nx2r = %f", x2r);
-		}
-		//1.2
-		if (delta_r == 0)
-		{
-			x1r = -b / (2 * a);
-			printf("\nx1r = %f", x1r);
-		}
-		//1.3
-		if (delta_r < 0)
-		{
-			x1r = -b / (2 * a);
-			x1u = -pdelta_r / (2 * a);
-			x2r = x1r;
-			x2u = x1u;
-			printf("\nx1r = %f", x1r);
-			printf("\nx1u = %f", x1u);
-			printf("\nx2r = %f", x2r);
-			printf("\nx2u = %f", x2u);
-		}
-	}
-	//2
-	if (a == 0 && b != 0 && d == 0)
-	{
-
-		x1r = -c / b;
-		printf("\nx1r = %f", x1r);
-	}
-	//3
-	if (a == 0 && b == 0 && (c != 0 || d != 0))
-	{
-		printf("\nRonwnanie sprzeczne");
-	}
-	//4
-	if (a == 0 && b == 0 && c == 0 && d == 0)
-	{
-		printf("\nRownanie tozsamosciowe");
-	}
-	//5
-	if (a == 0 && b != 0 && d != 0)
-	{
-		x1r = -c / b;
-		x1u = -d / b;
-		printf("\nx1r = %f", x1r);
-		printf("\nx1u = %f", x1u);
-	}
-	//6
-	if (a != 0 && d != 0)
-	{
-		//*** Czêœæ rzeczywista ***//
-		//m^2+n^2 	
-		delta_r = (1.0*b*b - 4.0*a*c)*(1.0*b*b - 4.0*a*c) + (-4.0*a*d)*(-4.0*a*d);
-
-		//ma³y pierwiastek
-		pdelta_r = delta_r / 2;
-	skokPierwiastek2:
-		pdelta_r = (pdelta_r + delta_r / pdelta_r) / 2;
-		if ((pdelta_r - (delta_r) / pdelta_r) > 0.000001) {
-
-			goto skokPierwiastek2;
-		}
-
-		//ma³y pierwiastek na dwa
-		delta_r = pdelta_r;
-		delta_r = (delta_r + (1.0*b*b - 4.0*a*c)) / 2;
-
-		//du¿y pierwiastek
-		pdelta_r = delta_r / 2;
-	skokPierwiastek3:
-		pdelta_r = (pdelta_r + delta_r / pdelta_r) / 2;
-		if ((pdelta_r - (delta_r) / pdelta_r) > 0.000001) {
-
-			goto skokPierwiastek3;
-		}
-
-
-		//*** Czêœæ urojona ***//
-		//m^2+n^2
-		delta_u = (1.0*b*b - 4.0*a*c)*(1.0*b*b - 4.0*a*c) + (-4.0*a*d)*(-4.0*a*d);
-
-		//ma³y pierwiastek
-		pdelta_u = delta_u / 2;
-	skokPierwiastek4:
-		pdelta_u = (pdelta_u + delta_u / pdelta_u) / 2;
-		if ((pdelta_u - (delta_u) / pdelta_u) > 0.000001) {
-
-			goto skokPierwiastek4;
-		}
-
-		//ma³y pierwiastek na dwa
-		delta_u = pdelta_u;
-		delta_u = (delta_u - (1.0*b*b - 4.0*a*c)) / 2;
-
-		//du¿y pierwiastek
-		pdelta_u = delta_u / 2;
-	skokPierwiastek5:
-		pdelta_u = (pdelta_u + delta_u / pdelta_u) / 2;
-		if ((pdelta_u - (delta_u) / pdelta_u) > 0.000001) {
-
-			goto skokPierwiastek5;
-		}
-
-		x1r = (-1.0*b - pdelta_r) / (2.0*a);	 x1u = (-1 * pdelta_u) / (2.0*a);
-		x2r = (-1.0*b - pdelta_r) / (2.0*a);	 x2u = (pdelta_u) / (2.0*a);
-		x3r = (-1.0*b + pdelta_r) / (2.0*a);	 x3u = (pdelta_u) / (2.0*a);
-		x4r = (-1.0*b + pdelta_r) / (2.0*a);	 x4u = (-1 * pdelta_u) / (2.0*a);
-
-		printf("\nx1r = %f \t x1u = %f", x1r, x1u);
-		printf("\nx2r = %f \t x2u = %f", x2r, x2u);
-		printf("\nx3r = %f \t x3u = %f", x3r, x3u);
-		printf("\nx4r = %f \t x4u = %f", x4r, x4u);
-	}
+	oblicz_rnie(a, b, c, d, &x1r, &x2r, &x3r, &x4r, &x1u, &x2u, &x3u, &x4u);
+	dodaj(delta_r, delta_u, &x1r, &x2r, &x3r, &x4r, &x1u, &x2u, &x3u, &x4u, &su, &sr);
+	odejmij(delta_r, delta_u, &x1r, &x2r, &x3r, &x4r, &x1u, &x2u, &x3u, &x4u, &ru, &rr);
+	pomnoz(delta_r, delta_u, &x1r, &x2r, &x3r, &x4r, &x1u, &x2u, &x3u, &x4u, &ilu, &ilr);
+	wyswietl(a, b, c, d, x1r, x2r, x3r, x4r, x1u, x2u, x3u, x4u, sr, su, rr, ru, ilr, ilu);
+	
 	return 0;
 }
 
