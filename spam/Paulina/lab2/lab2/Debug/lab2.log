@@ -1,5 +1,0 @@
-﻿  lab2.cpp
-e:\studia\sem4\inżynieria oprogramowania\moje\projektio\spam\paulina\lab2\lab2\lab2.cpp(35): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-e:\studia\sem4\inżynieria oprogramowania\moje\projektio\spam\paulina\lab2\lab2\lab2.cpp(40): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  lab2.vcxproj -> E:\Studia\Sem4\Inżynieria oprogramowania\moje\projektIO\spam\Paulina\lab2\Debug\lab2.exe
-  lab2.vcxproj -> E:\Studia\Sem4\Inżynieria oprogramowania\moje\projektIO\spam\Paulina\lab2\Debug\lab2.pdb (Full PDB)
