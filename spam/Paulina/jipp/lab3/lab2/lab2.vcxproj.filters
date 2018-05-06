@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Rownania">
+      <UniqueIdentifier>{4d969d55-27bb-42dd-b27d-69e98b09924d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Struktury">
+      <UniqueIdentifier>{6e4aed29-baca-4e8c-869f-9f73dedf3a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rownania">
+      <UniqueIdentifier>{53485023-0af1-485b-b67c-c4dfdcac6ab1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rownanie.h">
+      <Filter>Header Files\Rownania</Filter>
+    </ClInclude>
+    <ClInclude Include="Rownanie1.h">
+      <Filter>Header Files\Rownania</Filter>
+    </ClInclude>
+    <ClInclude Include="Rownanie2.h">
+      <Filter>Header Files\Rownania</Filter>
+    </ClInclude>
+    <ClInclude Include="Rownanie3.h">
+      <Filter>Header Files\Rownania</Filter>
+    </ClInclude>
+    <ClInclude Include="Rownanie4.h">
+      <Filter>Header Files\Rownania</Filter>
+    </ClInclude>
+    <ClInclude Include="Rownanie5.h">
+      <Filter>Header Files\Rownania</Filter>
+    </ClInclude>
+    <ClInclude Include="Dane.h">
+      <Filter>Header Files\Struktury</Filter>
+    </ClInclude>
+    <ClInclude Include="Delta.h">
+      <Filter>Header Files\Struktury</Filter>
+    </ClInclude>
+    <ClInclude Include="Pierwiastek.h">
+      <Filter>Header Files\Struktury</Filter>
+    </ClInclude>
+    <ClInclude Include="LiczbaZespolona.h">
+      <Filter>Header Files\Struktury</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lab2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Rownanie.cpp">
+      <Filter>Source Files\Rownania</Filter>
+    </ClCompile>
+    <ClCompile Include="Rownanie1.cpp">
+      <Filter>Source Files\Rownania</Filter>
+    </ClCompile>
+    <ClCompile Include="Rownanie2.cpp">
+      <Filter>Source Files\Rownania</Filter>
+    </ClCompile>
+    <ClCompile Include="Rownanie3.cpp">
+      <Filter>Source Files\Rownania</Filter>
+    </ClCompile>
+    <ClCompile Include="Rownanie4.cpp">
+      <Filter>Source Files\Rownania</Filter>
+    </ClCompile>
+    <ClCompile Include="Rownanie5.cpp">
+      <Filter>Source Files\Rownania</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
