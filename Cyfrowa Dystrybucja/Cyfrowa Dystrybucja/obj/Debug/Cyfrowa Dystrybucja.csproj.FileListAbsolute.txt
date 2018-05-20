@@ -1,1 +1,2 @@
 C:\Users\MrMasakra\Desktop\git\Cyfrowa Dystrybucja\Cyfrowa Dystrybucja\bin\Debug\Cyfrowa Dystrybucja.exe.config
+E:\Studia\Sem4\Inżynieria oprogramowania\moje\projektIO\Cyfrowa Dystrybucja\Cyfrowa Dystrybucja\bin\Debug\Cyfrowa Dystrybucja.exe.config
