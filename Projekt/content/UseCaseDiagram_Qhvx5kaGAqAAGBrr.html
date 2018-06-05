@@ -1,0 +1,423 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Use Case Diagram - Wyświetl Biblioteke Use Case Diagram</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		IO	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+<a href="UseCaseDiagram_2uJ25kaGAqAAGBRM.html" class="PageParentTitle">Main Panel : System</a><span class="PageParentTitle">&nbsp;.&nbsp;</span><a href="UseCaseDiagram_2uJ25kaGAqAAGBRM.html" class="PageParentTitle">Wyświetl Biblioteke : Use Case</a>	</p>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Use Case Diagram - Wyświetl Biblioteke Use Case Diagram		</span>
+<a onclick="javascript: showVpLink('IO.vpp://diagram/Qhvx5kaGAqAAGBrr', 'Wy&#x15b;wietl Biblioteke Use Case Diagram\nIO.vpp://diagram/Qhvx5kaGAqAAGBrr', 'Wy&#x15b;wietl Biblioteke Use Case Diagram', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|25.0|122.0|30.0|60.0|Actor_gHsx5kaGAqAAGBoH.html|Actor_gHsx5kaGAqAAGBoH.html|8HgJ5kaGAqAAGBsL" id="option8HgJ5kaGAqAAGBsL">Uzytkownik : Actor</option>
+<option value="shape|228.0|77.0|99.0|40.0|UseCase_mowJ5kaGAqAAGBsf.html|UseCase_mowJ5kaGAqAAGBsf.html|mowJ5kaGAqAAGBse" id="optionmowJ5kaGAqAAGBse">Odinstaluj produkt : Use Case</option>
+<option value="shape|228.0|133.0|80.0|40.0|UseCase_FOYJ5kaGAqAAGBsy.html|UseCase_FOYJ5kaGAqAAGBsy.html|FOYJ5kaGAqAAGBsx" id="optionFOYJ5kaGAqAAGBsx">Zainstaluj Produkt : Use Case</option>
+<option value="shape|481.0|117.0|142.0|40.0|UseCase_lCCJ5kaGAqAAGBuF.html|UseCase_lCCJ5kaGAqAAGBuF.html|lCCJ5kaGAqAAGBuE" id="optionlCCJ5kaGAqAAGBuE">Sprawdź dostępne miejsce : Use Case</option>
+<option value="shape|228.0|207.0|80.0|40.0|UseCase_zT_u8UaGAqAAERRz.html|UseCase_zT_u8UaGAqAAERRz.html|jT.u8UaGAqAAERRy" id="optionjT.u8UaGAqAAERRy">Oceń produkt : Use Case</option>
+<option value="shape|221.0|9.0|95.0|40.0|UseCase_hX8x5kaGAqAAGBoR.html|UseCase_hX8x5kaGAqAAGBoR.html|1HgJ5kaGAqAAGBsO" id="option1HgJ5kaGAqAAGBsO">Uruchom produkt : Use Case</option>
+<option value="shape|450.0|2.0|205.0|40.0|UseCase_F0Sx5kaGAqAAGBok.html|UseCase_F0Sx5kaGAqAAGBok.html|3HgJ5kaGAqAAGBsR" id="option3HgJ5kaGAqAAGBsR">Sprawdź czy produkt jest zainstalowany : Use Case</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Wywietl_Biblioteke_Use_Case_Diagram.png" usemap="#diagram_map" class="Image" width="659" height="251"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="221.0, 40.39086, 43.0, 119.0, 44.153847, 122.0, 55.0, 122.0, 55.0, 128.90863, 55.0, 128.90863, 235.94254, 49.0, 221.0, 49.0, 221.0, 40.39086" coords2="221.0, 40.39086, 43.0, 119.0, 44.153847, 122.0, 55.0, 122.0, 55.0, 128.90863, 55.0, 128.90863, 235.94254, 49.0, 221.0, 49.0, 221.0, 40.39086" shape="poly" alt=":Association" id="areadiagram_map_ongJ5kaGAqAAGBsU" href="Association_YCmx5kaGAqAAGBpA.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="316.0, 10.0, 316.0, 24.0, 450.0, 24.0, 450.0, 10.0" coords2="316.0, 10.0, 316.0, 24.0, 450.0, 24.0, 450.0, 10.0" shape="poly" alt=":Include" id="areadiagram_map_kngJ5kaGAqAAGBsX" href="Include_bqGx5kaGAqAAGBo4.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="228.0, 110.162994, 45.0, 115.0, 45.0, 122.0, 55.0, 122.0, 55.0, 128.73569, 55.0, 128.73569, 272.0, 123.0, 272.0, 117.0, 228.0, 117.0, 228.0, 110.162994, 55.0, 128.73569, 55.0, 128.73569, 55.0, 128.73569, 55.0, 128.73569" coords2="228.0, 110.162994, 45.0, 115.0, 45.0, 122.0, 55.0, 122.0, 55.0, 128.73569, 55.0, 128.73569, 272.0, 123.0, 272.0, 117.0, 228.0, 117.0, 228.0, 110.162994, 55.0, 128.73569, 55.0, 128.73569, 55.0, 128.73569, 55.0, 128.73569" shape="poly" alt=":Association" id="areadiagram_map_4TkJ5kaGAqAAGBtP" href="Association_a9kJ5kaGAqAAGBtK.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="55.0, 166.0, 55.0, 180.0, 238.0, 180.0, 238.0, 173.0, 228.0, 173.0, 228.0, 166.0" coords2="55.0, 166.0, 55.0, 180.0, 238.0, 180.0, 238.0, 173.0, 228.0, 173.0, 228.0, 166.0" shape="poly" alt=":Association" id="areadiagram_map_ZtUJ5kaGAqAAGBtZ" href="Association__VUJ5kaGAqAAGBtU.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="308.0, 133.0, 308.0, 147.0, 481.0, 147.0, 481.0, 133.0" coords2="308.0, 133.0, 308.0, 147.0, 481.0, 147.0, 481.0, 133.0" shape="poly" alt=":Include" id="areadiagram_map_hpmJ5kaGAqAAGBuY" href="Include_bRmJ5kaGAqAAGBuX.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="450.0, 33.857143, 299.0, 77.0, 327.0, 77.0, 327.0, 84.10497, 473.55768, 42.0, 450.0, 42.0, 450.0, 33.857143" coords2="450.0, 33.857143, 299.0, 77.0, 327.0, 77.0, 327.0, 84.10497, 473.55768, 42.0, 450.0, 42.0, 450.0, 33.857143" shape="poly" alt=":Include" id="areadiagram_map_.gOJ5kaGAqAAGBuq" href="Include_Y_2J5kaGAqAAGBup.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="70.0, 188.0, 68.0, 202.0, 228.0, 233.61676, 228.0, 233.61676, 228.0, 219.22156, 70.0, 188.0" coords2="70.0, 188.0, 68.0, 202.0, 228.0, 233.61676, 228.0, 233.61676, 228.0, 219.22156, 70.0, 188.0" shape="poly" alt=":Association" id="areadiagram_map_PBxu8UaGAqAAERSK" href="Association_Luxu8UaGAqAAERSF.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      Zbiera statystyk&amp;#281; Ocena o danym produkcie od u&amp;#380;ytkownika
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="228, 207, 308, 247" coords2="228, 207, 308, 247" shape="rect" alt="Oceń produkt:Use Case" id="areadiagram_map_jT.u8UaGAqAAERRy" href="UseCase_zT_u8UaGAqAAERRz.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="481, 117, 623, 157" coords2="481, 117, 623, 157" shape="rect" alt="Sprawdź dostępne miejsce:Use Case" id="areadiagram_map_lCCJ5kaGAqAAGBuE" href="UseCase_lCCJ5kaGAqAAGBuF.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      Wybrany z listy u&amp;#380;ytkownika produkt zostaje zainstalowany, je&amp;#380;eli 
+      poporawnie zako&amp;#324;czy&amp;#322;a si&amp;#281; weryfikacja wolnego miejsca na dysku.
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      1. Produkt posiada status niezainstalowany
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      2. Zmieniony zostaje status na zainstalowany
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="228, 133, 308, 173" coords2="228, 133, 308, 173" shape="rect" alt="Zainstaluj Produkt:Use Case" id="areadiagram_map_FOYJ5kaGAqAAGBsx" href="UseCase_FOYJ5kaGAqAAGBsy.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      Wybrany z listy u&amp;#380;ytkownika produkt zostaje odinstalowany, je&amp;#380;eli 
+      poporawnie zako&amp;#324;czy&amp;#322;a si&amp;#281; weryfikacja jego instalacji.
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      1. Produkt posiada status zainstalowany
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      2. Zmieniony zostaje status na niezainstalowany
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="228, 77, 327, 117" coords2="228, 77, 327, 117" shape="rect" alt="Odinstaluj produkt:Use Case" id="areadiagram_map_mowJ5kaGAqAAGBse" href="UseCase_mowJ5kaGAqAAGBsf.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="450, 2, 655, 42" coords2="450, 2, 655, 42" shape="rect" alt="Sprawdź czy produkt jest zainstalowany:Use Case" id="areadiagram_map_3HgJ5kaGAqAAGBsR" href="UseCase_F0Sx5kaGAqAAGBok.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      Wybrany z listy u&amp;#380;ytkownika produkt zostaje uruchomiony, je&amp;#380;eli 
+      poporawnie zako&amp;#324;czya si&amp;#281; weryfikacja jego instalacji.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="221, 9, 316, 49" coords2="221, 9, 316, 49" shape="rect" alt="Uruchom produkt:Use Case" id="areadiagram_map_1HgJ5kaGAqAAGBsO" href="UseCase_hX8x5kaGAqAAGBoR.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="25, 122, 55, 182" coords2="25, 122, 55, 182" shape="rect" alt="Uzytkownik:Actor" id="areadiagram_map_8HgJ5kaGAqAAGBsL" href="Actor_gHsx5kaGAqAAGBoH.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_gHsx5kaGAqAAGBoH.html" class="ItemLink">Uzytkownik : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_mowJ5kaGAqAAGBsf.html" class="ItemLink">Odinstaluj produkt : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Wybrany z listy u&#380;ytkownika produkt zostaje odinstalowany, je&#380;eli 
+      poporawnie zako&#324;czy&#322;a si&#281; weryfikacja jego instalacji.
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      1. Produkt posiada status zainstalowany
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      2. Zmieniony zostaje status na niezainstalowany
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_FOYJ5kaGAqAAGBsy.html" class="ItemLink">Zainstaluj Produkt : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Wybrany z listy u&#380;ytkownika produkt zostaje zainstalowany, je&#380;eli 
+      poporawnie zako&#324;czy&#322;a si&#281; weryfikacja wolnego miejsca na dysku.
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      1. Produkt posiada status niezainstalowany
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      2. Zmieniony zostaje status na zainstalowany
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_lCCJ5kaGAqAAGBuF.html" class="ItemLink">Sprawdź dostępne miejsce : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_zT_u8UaGAqAAERRz.html" class="ItemLink">Oceń produkt : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Zbiera statystyk&#281; Ocena o danym produkcie od u&#380;ytkownika
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_hX8x5kaGAqAAGBoR.html" class="ItemLink">Uruchom produkt : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Wybrany z listy u&#380;ytkownika produkt zostaje uruchomiony, je&#380;eli 
+      poporawnie zako&#324;czya si&#281; weryfikacja jego instalacji.
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_F0Sx5kaGAqAAGBok.html" class="ItemLink">Sprawdź czy produkt jest zainstalowany : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		IO	</div>
+</body>
+</html>

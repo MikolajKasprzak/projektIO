@@ -1,0 +1,364 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Use Case Diagram - Wyświetl liste Use Case Diagram</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		IO	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+<a href="UseCaseDiagram_2uJ25kaGAqAAGBRM.html" class="PageParentTitle">Main Panel : System</a><span class="PageParentTitle">&nbsp;.&nbsp;</span><a href="UseCaseDiagram_2uJ25kaGAqAAGBRM.html" class="PageParentTitle">Wyświetl liste : Use Case</a>	</p>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Use Case Diagram - Wyświetl liste Use Case Diagram		</span>
+<a onclick="javascript: showVpLink('IO.vpp://diagram/2aS55kaGAqAAGB2P', 'Wy&#x15b;wietl liste Use Case Diagram\nIO.vpp://diagram/2aS55kaGAqAAGB2P', 'Wy&#x15b;wietl liste Use Case Diagram', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|397.0|160.0|80.0|40.0|UseCase_2qm45kaGAqAAGAqz.html|UseCase_2qm45kaGAqAAGAqz.html|NAR88UaGAqAAEQuk" id="optionNAR88UaGAqAAEQuk">Potwierdź : Use Case</option>
+<option value="shape|560.0|92.0|80.0|40.0|UseCase_BaPE5kaGAqAAGAw1.html|UseCase_BaPE5kaGAqAAGAw1.html|0gR88UaGAqAAEQuo" id="option0gR88UaGAqAAEQuo">Weryfikacja : Use Case</option>
+<option value="shape|548.0|2.0|92.0|40.0|UseCase_Fzik5kaGAqAAGAzu.html|UseCase_Fzik5kaGAqAAGAzu.html|XgR88UaGAqAAEQus" id="optionXgR88UaGAqAAEQus">Komunikat błędu : Use Case</option>
+<option value="shape|316.0|59.0|202.0|59.0|UseCase_Spis5kaGAqAAGA8z.html|UseCase_Spis5kaGAqAAGA8z.html|mQR88UaGAqAAEQux" id="optionmQR88UaGAqAAEQux">Zmień dane formularza : Use Case</option>
+<option value="shape|23.0|118.0|30.0|60.0|Actor_kQy55kaGAqAAGB2e.html|Actor_kQy55kaGAqAAGB2e.html|kQy55kaGAqAAGB2d" id="optionkQy55kaGAqAAGB2d">Deweloper : Actor</option>
+<option value="shape|108.0|19.0|173.0|40.0|UseCase_Tvq55kaGAqAAGB2w.html|UseCase_Tvq55kaGAqAAGB2w.html|Tvq55kaGAqAAGB2v" id="optionTvq55kaGAqAAGB2v">Wyświetl statystyke indywidualna : Use Case</option>
+<option value="shape|121.0|143.0|181.0|74.0|UseCase__oJ55kaGAqAAGB3D.html|UseCase__oJ55kaGAqAAGB3D.html|_oJ55kaGAqAAGB3C" id="option_oJ55kaGAqAAGB3C">Edytuj produkt : Use Case</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Wywietl_liste_Use_Case_Diagram.png" usemap="#diagram_map" class="Image" width="644" height="221"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="108.0, 48.564102, 41.951218, 118.0, 53.0, 118.0, 53.0, 126.89744, 117.585365, 59.0, 108.0, 59.0, 108.0, 48.564102" coords2="108.0, 48.564102, 41.951218, 118.0, 53.0, 118.0, 53.0, 126.89744, 117.585365, 59.0, 108.0, 59.0, 108.0, 48.564102" shape="poly" alt=":Association" id="areadiagram_map_yql55kaGAqAAGB3c" href="Association_ZSl55kaGAqAAGB3X.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="53.0, 167.0, 53.0, 178.0, 43.0, 178.0, 43.0, 181.0, 121.0, 181.0, 121.0, 167.0" coords2="53.0, 167.0, 53.0, 178.0, 43.0, 178.0, 43.0, 181.0, 121.0, 181.0, 121.0, 167.0" shape="poly" alt=":Association" id="areadiagram_map_AdV55kaGAqAAGB3o" href="Association__VV55kaGAqAAGB3j.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="518.0, 110.0, 518.0, 118.0, 434.0, 118.0, 434.0, 124.0, 560.0, 124.0, 560.0, 110.0" coords2="518.0, 110.0, 518.0, 118.0, 434.0, 118.0, 434.0, 124.0, 560.0, 124.0, 560.0, 110.0" shape="poly" alt=":Include" id="areadiagram_map_EwR88UaGAqAAEQu0" href="Include_AAes5kaGAqAAGA9X.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="548.0, 32.473682, 504.17392, 59.0, 518.0, 59.0, 518.0, 66.47369, 558.43475, 42.0, 548.0, 42.0, 548.0, 32.473682" coords2="548.0, 32.473682, 504.17392, 59.0, 518.0, 59.0, 518.0, 66.47369, 558.43475, 42.0, 548.0, 42.0, 548.0, 32.473682" shape="poly" alt=":Extend" id="areadiagram_map_5wR88UaGAqAAEQu3" href="Extend_Ag5s5kaGAqAAGA9o.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="302.0, 173.0, 302.0, 187.0, 397.0, 187.0, 397.0, 173.0" coords2="302.0, 173.0, 302.0, 187.0, 397.0, 187.0, 397.0, 173.0" shape="poly" alt=":Extend" id="areadiagram_map_iL588UaGAqAAEQvG" href="Extend_xj588UaGAqAAEQvE.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="316.0, 100.28571, 293.29114, 143.0, 302.0, 143.0, 302.0, 156.07143, 322.2405, 118.0, 316.0, 118.0, 316.0, 100.28571" coords2="316.0, 100.28571, 293.29114, 143.0, 302.0, 143.0, 302.0, 156.07143, 322.2405, 118.0, 316.0, 118.0, 316.0, 100.28571" shape="poly" alt=":Extend" id="areadiagram_map_k3N88UaGAqAAEQvN" href="Extend_tHN88UaGAqAAEQvL.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="316, 59, 518, 118" coords2="316, 59, 518, 118" shape="rect" alt="Zmień dane formularza:Use Case" id="areadiagram_map_mQR88UaGAqAAEQux" href="UseCase_Spis5kaGAqAAGA8z.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="548, 2, 640, 42" coords2="548, 2, 640, 42" shape="rect" alt="Komunikat błędu:Use Case" id="areadiagram_map_XgR88UaGAqAAEQus" href="UseCase_Fzik5kaGAqAAGAzu.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="560, 92, 640, 132" coords2="560, 92, 640, 132" shape="rect" alt="Weryfikacja:Use Case" id="areadiagram_map_0gR88UaGAqAAEQuo" href="UseCase_BaPE5kaGAqAAGAw1.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="397, 160, 477, 200" coords2="397, 160, 477, 200" shape="rect" alt="Potwierdź:Use Case" id="areadiagram_map_NAR88UaGAqAAEQuk" href="UseCase_2qm45kaGAqAAGAqz.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      Wy&amp;#347;wietla formularz zezwalaj&amp;#261;cy na zmian&amp;#281; danych dot. produktu. Pozwala 
+      na wprowadzenie danych: cena, opis.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="121, 143, 302, 217" coords2="121, 143, 302, 217" shape="rect" alt="Edytuj produkt:Use Case" id="areadiagram_map__oJ55kaGAqAAGB3C" href="UseCase__oJ55kaGAqAAGB3D.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      Generuje indywidualn&amp;#261; statystyke danego produktu zawieraj&amp;#261;c&amp;#261; dzienn&amp;#261;, 
+      miesi&amp;#281;czn&amp;#261; lub roczn&amp;#261;: ilo&amp;#347;&amp;#263; sprzeda&amp;#380;y, doch&amp;#243;d ze sprzeda&amp;#380;y, ocen&amp;#281; 
+      spo&amp;#322;eczno&amp;#347;ci.
+    &amp;lt;/p&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      &amp;nbsp;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="108, 19, 281, 59" coords2="108, 19, 281, 59" shape="rect" alt="Wyświetl statystyke indywidualna:Use Case" id="areadiagram_map_Tvq55kaGAqAAGB2v" href="UseCase_Tvq55kaGAqAAGB2w.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="23, 118, 53, 178" coords2="23, 118, 53, 178" shape="rect" alt="Deweloper:Actor" id="areadiagram_map_kQy55kaGAqAAGB2d" href="Actor_kQy55kaGAqAAGB2e.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_2qm45kaGAqAAGAqz.html" class="ItemLink">Potwierdź : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_BaPE5kaGAqAAGAw1.html" class="ItemLink">Weryfikacja : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_Fzik5kaGAqAAGAzu.html" class="ItemLink">Komunikat błędu : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_Spis5kaGAqAAGA8z.html" class="ItemLink">Zmień dane formularza : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_kQy55kaGAqAAGB2e.html" class="ItemLink">Deweloper : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_Tvq55kaGAqAAGB2w.html" class="ItemLink">Wyświetl statystyke indywidualna : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Generuje indywidualn&#261; statystyke danego produktu zawieraj&#261;c&#261; dzienn&#261;, 
+      miesi&#281;czn&#261; lub roczn&#261;: ilo&#347;&#263; sprzeda&#380;y, doch&#243;d ze sprzeda&#380;y, ocen&#281; 
+      spo&#322;eczno&#347;ci.
+    </p>
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      &nbsp;
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase__oJ55kaGAqAAGB3D.html" class="ItemLink">Edytuj produkt : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Wy&#347;wietla formularz zezwalaj&#261;cy na zmian&#281; danych dot. produktu. Pozwala 
+      na wprowadzenie danych: cena, opis.
+    </p>
+  </body></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		IO	</div>
+</body>
+</html>

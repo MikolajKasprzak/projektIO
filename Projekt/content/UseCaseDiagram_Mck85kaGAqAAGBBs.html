@@ -1,0 +1,410 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Use Case Diagram - Portfel</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		IO	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+<a href="UseCaseDiagram_2uJ25kaGAqAAGBRM.html" class="PageParentTitle">Main Panel : System</a><span class="PageParentTitle">&nbsp;.&nbsp;</span><a href="UseCaseDiagram_2uJ25kaGAqAAGBRM.html" class="PageParentTitle">Zarządzaj portfelem : Use Case</a>	</p>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Use Case Diagram - <a href="Glossary_H2c0rEaAyWSuJQrE.html" class="ItemLink">Portfel</a>		</span>
+<a onclick="javascript: showVpLink('IO.vpp://diagram/Mck85kaGAqAAGBBs', 'Portfel\nIO.vpp://diagram/Mck85kaGAqAAGBBs', 'Portfel', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|114.0|2.0|455.0|454.0|System_ieC85kaGAqAAGBCS.html|System_ieC85kaGAqAAGBCS.html|ieC85kaGAqAAGBCR" id="optionieC85kaGAqAAGBCR">Portfel : System</option>
+<option value="shape|25.0|65.0|30.0|60.0|Actor__VaTxkaAyWSuJQcH.html|Actor__VaTxkaAyWSuJQcH.html|87k85kaGAqAAGBB1" id="option87k85kaGAqAAGBB1">Użytkownik : Actor</option>
+<option value="shape|25.0|187.0|30.0|60.0|Actor_0EBTxkaAyWSuJQcd.html|Actor_0EBTxkaAyWSuJQcd.html|hss85kaGAqAAGBCB" id="optionhss85kaGAqAAGBCB">Deweloper : Actor</option>
+<option value="shape|178.0|76.0|181.0|59.0|UseCase_x6y85kaGAqAAGBCY.html|UseCase_x6y85kaGAqAAGBCY.html|x6y85kaGAqAAGBCX" id="optionx6y85kaGAqAAGBCX">Doładuj środki : Use Case</option>
+<option value="shape|178.0|225.0|181.0|59.0|UseCase_lh585kaGAqAAGBDA.html|UseCase_lh585kaGAqAAGBDA.html|lh585kaGAqAAGBC_" id="optionlh585kaGAqAAGBC_">Wypłac środki : Use Case</option>
+<option value="shape|178.0|150.0|80.0|40.0|UseCase_QJri5kaGAqAAGBEM.html|UseCase_QJri5kaGAqAAGBEM.html|QJri5kaGAqAAGBEL" id="optionQJri5kaGAqAAGBEL">Sprawdź środki : Use Case</option>
+<option value="shape|452.0|225.0|107.0|40.0|UseCase_N7VS5kaGAqAAGBH2.html|UseCase_N7VS5kaGAqAAGBH2.html|N7VS5kaGAqAAGBH1" id="optionN7VS5kaGAqAAGBH1">Weryfikacja wypłaty : Use Case</option>
+<option value="shape|445.0|75.0|96.0|40.0|UseCase_FMjS5kaGAqAAGBIJ.html|UseCase_FMjS5kaGAqAAGBIJ.html|FMjS5kaGAqAAGBII" id="optionFMjS5kaGAqAAGBII">Werfikacja wpłaty : Use Case</option>
+<option value="shape|385.0|154.0|80.0|40.0|UseCase_Qyny5kaGAqAAGBKF.html|UseCase_Qyny5kaGAqAAGBKF.html|Qyny5kaGAqAAGBKE" id="optionQyny5kaGAqAAGBKE">Komunikat : Use Case</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Portfel.png" usemap="#diagram_map" class="Image" width="573" height="460"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="55.0, 88.0, 55.0, 102.0, 178.0, 102.0, 178.0, 88.0" coords2="55.0, 88.0, 55.0, 102.0, 178.0, 102.0, 178.0, 88.0" shape="poly" alt=":Association" id="areadiagram_map_35iS5kaGAqAAGBFx" href="Association_6piS5kaGAqAAGBFs.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="55.0, 238.0, 55.0, 247.0, 45.0, 247.0, 45.0, 252.0, 178.0, 252.0, 178.0, 238.0" coords2="55.0, 238.0, 55.0, 247.0, 45.0, 247.0, 45.0, 252.0, 178.0, 252.0, 178.0, 238.0" shape="poly" alt=":Association" id="areadiagram_map_TmaS5kaGAqAAGBF9" href="Association_a6aS5kaGAqAAGBF4.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="45.0, 180.0, 45.0, 187.0, 55.0, 187.0, 55.0, 194.0, 206.0, 194.0, 206.0, 190.0, 178.0, 190.0, 178.0, 180.0" coords2="45.0, 180.0, 45.0, 187.0, 55.0, 187.0, 55.0, 194.0, 206.0, 194.0, 206.0, 190.0, 178.0, 190.0, 178.0, 180.0" shape="poly" alt=":Association" id="areadiagram_map_RO6S5kaGAqAAGBGF" href="Association_Fm6S5kaGAqAAGBGA.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="68.0, 133.0, 68.0, 147.0, 178.0, 156.36171, 178.0, 156.36171, 178.0, 150.0, 209.0, 150.0, 209.0, 145.0, 68.0, 133.0" coords2="68.0, 133.0, 68.0, 147.0, 178.0, 156.36171, 178.0, 156.36171, 178.0, 150.0, 209.0, 150.0, 209.0, 145.0, 68.0, 133.0" shape="poly" alt=":Association" id="areadiagram_map_lUuS5kaGAqAAGBGx" href="Association_8EuS5kaGAqAAGBGs.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="359.0, 256.0, 359.0, 270.0, 492.0, 270.0, 492.0, 265.0, 452.0, 265.0, 452.0, 256.0" coords2="359.0, 256.0, 359.0, 270.0, 492.0, 270.0, 492.0, 265.0, 452.0, 265.0, 452.0, 256.0" shape="poly" alt=":Include" id="areadiagram_map_i1fS5kaGAqAAGBJF" href="Include__FfS5kaGAqAAGBJE.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="359.0, 88.0, 359.0, 102.0, 445.0, 102.0, 445.0, 88.0" coords2="359.0, 88.0, 359.0, 102.0, 445.0, 102.0, 445.0, 88.0" shape="poly" alt=":Include" id="areadiagram_map_Px_S5kaGAqAAGBJJ" href="Include_ch_S5kaGAqAAGBJI.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="359.0, 126.545456, 359.0, 135.0, 347.5, 135.0, 385.0, 162.27272, 385.0, 154.0, 396.75, 154.0, 359.0, 126.545456" coords2="359.0, 126.545456, 359.0, 135.0, 347.5, 135.0, 385.0, 162.27272, 385.0, 154.0, 396.75, 154.0, 359.0, 126.545456" shape="poly" alt=":Extend" id="areadiagram_map_clvy5kaGAqAAGBKf" href="Extend__Zvy5kaGAqAAGBKd.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="385.0, 181.5965, 349.65714, 225.0, 359.0, 225.0, 359.0, 236.0351, 393.22858, 194.0, 385.0, 194.0, 385.0, 181.5965" coords2="385.0, 181.5965, 349.65714, 225.0, 359.0, 225.0, 359.0, 236.0351, 393.22858, 194.0, 385.0, 194.0, 385.0, 181.5965" shape="poly" alt=":Extend" id="areadiagram_map_xb0K5kaGAqAAGBLb" href="Extend_4L0K5kaGAqAAGBLZ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="385, 154, 465, 194" coords2="385, 154, 465, 194" shape="rect" alt="Komunikat:Use Case" id="areadiagram_map_Qyny5kaGAqAAGBKE" href="UseCase_Qyny5kaGAqAAGBKF.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="445, 75, 541, 115" coords2="445, 75, 541, 115" shape="rect" alt="Werfikacja wpłaty:Use Case" id="areadiagram_map_FMjS5kaGAqAAGBII" href="UseCase_FMjS5kaGAqAAGBIJ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="452, 225, 559, 265" coords2="452, 225, 559, 265" shape="rect" alt="Weryfikacja wypłaty:Use Case" id="areadiagram_map_N7VS5kaGAqAAGBH1" href="UseCase_N7VS5kaGAqAAGBH2.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      Wy&amp;#347;wietla aktualny stan wirtualnego konta , w walucie domy&amp;#347;lnej, 
+      okreslonej przy tworzeniu konta,
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="178, 150, 258, 190" coords2="178, 150, 258, 190" shape="rect" alt="Sprawdź środki:Use Case" id="areadiagram_map_QJri5kaGAqAAGBEL" href="UseCase_QJri5kaGAqAAGBEM.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      Po poprawnej weryfikacji &amp;#347;rodk&amp;#243;w na koncie odejmuje z portfela 
+      dewelopera okre&amp;#347;lon&amp;#261; przez niego wcze&amp;#347;niej kwote pieni&amp;#281;dzy i przelewa na 
+      wskazane prywatne konto.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="178, 225, 359, 284" coords2="178, 225, 359, 284" shape="rect" alt="Wypłac środki:Use Case" id="areadiagram_map_lh585kaGAqAAGBC_" href="UseCase_lh585kaGAqAAGBDA.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;&amp;quot;&amp;gt;
+      Po poprawnej weryfikacji przelewu, dodaje do portfela u&amp;#380;ytkownika 
+      okre&amp;#347;lon&amp;#261; wcze&amp;#347;niej przez niego kwote pieni&amp;#281;dzy, przelan&amp;#261; z prywatnego 
+      konta.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="178, 76, 359, 135" coords2="178, 76, 359, 135" shape="rect" alt="Doładuj środki:Use Case" id="areadiagram_map_x6y85kaGAqAAGBCX" href="UseCase_x6y85kaGAqAAGBCY.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="114, 2, 569, 456" coords2="114, 2, 569, 456" shape="rect" alt="Portfel:System" id="areadiagram_map_ieC85kaGAqAAGBCR" href="System_ieC85kaGAqAAGBCS.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="25, 187, 55, 247" coords2="25, 187, 55, 247" shape="rect" alt="Deweloper:Actor" id="areadiagram_map_hss85kaGAqAAGBCB" href="Actor_0EBTxkaAyWSuJQcd.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="25, 65, 55, 125" coords2="25, 65, 55, 125" shape="rect" alt="Użytkownik:Actor" id="areadiagram_map_87k85kaGAqAAGBB1" href="Actor__VaTxkaAyWSuJQcH.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/System.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/System.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="System_ieC85kaGAqAAGBCS.html" class="ItemLink">Portfel : System</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor__VaTxkaAyWSuJQcH.html" class="ItemLink">Użytkownik : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_0EBTxkaAyWSuJQcd.html" class="ItemLink">Deweloper : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_x6y85kaGAqAAGBCY.html" class="ItemLink">Doładuj środki : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Po poprawnej weryfikacji przelewu, dodaje do portfela u&#380;ytkownika 
+      okre&#347;lon&#261; wcze&#347;niej przez niego kwote pieni&#281;dzy, przelan&#261; z prywatnego 
+      konta.
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_lh585kaGAqAAGBDA.html" class="ItemLink">Wypłac środki : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Po poprawnej weryfikacji &#347;rodk&#243;w na koncie odejmuje z portfela 
+      dewelopera okre&#347;lon&#261; przez niego wcze&#347;niej kwote pieni&#281;dzy i przelewa na 
+      wskazane prywatne konto.
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_QJri5kaGAqAAGBEM.html" class="ItemLink">Sprawdź środki : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;margin-left:0;margin-right:0;font-size:12px;font-family:Dialog;">
+    <p style="margin-bottom:.0001pt;margin-top:0pt;margin-left:0pt;margin-right:0pt;">
+      Wy&#347;wietla aktualny stan wirtualnego konta , w walucie domy&#347;lnej, 
+      okreslonej przy tworzeniu konta,
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_N7VS5kaGAqAAGBH2.html" class="ItemLink">Weryfikacja wypłaty : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_FMjS5kaGAqAAGBIJ.html" class="ItemLink">Werfikacja wpłaty : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_Qyny5kaGAqAAGBKF.html" class="ItemLink">Komunikat : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		IO	</div>
+</body>
+</html>

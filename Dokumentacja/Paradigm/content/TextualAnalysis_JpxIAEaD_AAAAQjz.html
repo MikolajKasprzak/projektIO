@@ -1,0 +1,2206 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Textual Analysis - Platforma zarządzania cyfrową dystrybucją oprogramowania</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		IO	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Textual Analysis - Platforma zarządzania cyfrową dystrybucją oprogramowania		</span>
+<a onclick="javascript: showVpLink('IO.vpp://diagram/JpxIAEaD.AAAAQjz', 'Platforma zarz&#x105;dzania cyfrow&#x105; dystrybucj&#x105; oprogramowania\nIO.vpp://diagram/JpxIAEaD.AAAAQjz', 'Platforma zarz&#x105;dzania cyfrow&#x105; dystrybucj&#x105; oprogramowania', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+Problem Statement			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableContent">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="color:#000000;font-weight:normal;margin-left:0;font-size:22px;font-family:Dialog;margin-right:0;">
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <span lang="pl" line-height="115%" style="font-size:12.0pt;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="12.0pt" style="font-size:12.0pt;">Z 
+      A C H O D N I O P O M O R S K I<o line-height="115%" p="#DEFAULT" style="font-size:12.0pt;font-family:Times New Roman,serif;"></o style="font-size:12.0pt;font-family:Times New Roman,serif;"></font></span>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <span lang="pl" line-height="115%" style="font-size:12.0pt;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="12.0pt" style="font-size:12.0pt;">U 
+      N I W E R S Y T E T</font></span><font face="Times New Roman,serif" size="12.0pt" style="font-size:12.0pt;"><span>&nbsp;&nbsp;&nbsp; 
+      </span><span lang="pl" line-height="115%" style="font-size:12.0pt;font-family:Times New Roman,serif;">T 
+      E C H N O L O G I C Z N Y<o line-height="115%" p="#DEFAULT" style="font-size:12.0pt;font-family:Times New Roman,serif;"></o style="font-size:12.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <span lang="pl" line-height="115%" style="font-size:12.0pt;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="12.0pt" style="font-size:12.0pt;">W</font></span><font face="Times New Roman,serif" size="12.0pt" style="font-size:12.0pt;"><span>&nbsp; 
+      </span><span lang="pl" line-height="115%" style="font-size:12.0pt;font-family:Times New Roman,serif;">S 
+      Z C Z E C I N I E<o line-height="115%" p="#DEFAULT" style="font-size:12.0pt;font-family:Times New Roman,serif;"></o style="font-size:12.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <font face="Times New Roman,serif" size="12.0pt" style="font-size:12.0pt;"><span lang="pl" line-height="115%" style="font-size:12.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-size:12.0pt;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-size:12.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <b><span lang="pl" line-height="115%" style="font-size:12.0pt;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="12.0pt" style="font-size:12.0pt;">WYDZIA&#321; 
+      INFORMATYKI<o line-height="115%" p="#DEFAULT" style="font-weight:bold;font-size:12.0pt;font-family:Times New Roman,serif;"></o style="font-weight:bold;font-size:12.0pt;font-family:Times New Roman,serif;"></font></span></b>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <b><font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-weight:bold;font-size:14.0pt;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-weight:bold;font-size:14.0pt;font-family:Times New Roman,serif;"></span></font></b>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <b><font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-weight:bold;font-size:14.0pt;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-weight:bold;font-size:14.0pt;font-family:Times New Roman,serif;"></span></font></b>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <span line-height="115%" style="font-size:24.0pt;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="24.0pt" style="font-size:24.0pt;"><!--[if gte vml 1]><v:shapetype id="_x0000_t75" coordsize="21600,21600"
+ o:spt="75" o:preferrelative="t" path="m@4@5l@4@11@9@11@9@5xe" filled="f"
+ stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="image14.png" o:spid="_x0000_i1034" type="#_x0000_t75"
+ style='width:66pt;height:115.5pt;visibility:visible;mso-wrap-style:square'>
+ <v:imagedata src="file:///C:\Users\xxx\AppData\Local\Temp\msohtmlclip1\01\clip_image001.png"
+  o:title=""/>
+</v:shape><![endif]-->
+      <img height="154" line-height="115%" shapes="image14.png" src="../images/VPDOCIMG_1520419636671_V7F000001162001285BF008F9.png" style="font-size:24.0pt;font-family:Times New Roman,serif;" v="#DEFAULT" width="88"></font></span><font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-size:14.0pt;font-family:Times New Roman,serif;">
+      </o style="font-size:14.0pt;font-family:Times New Roman,serif;">
+      </span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-size:14.0pt;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-size:14.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-size:14.0pt;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-size:14.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-size:14.0pt;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-size:14.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <span lang="pl" line-height="115%" style="font-size:18.0pt;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="18.0pt" style="font-size:18.0pt;">Paulina 
+      Patrowicz, Miko&#322;aj Kasprzak<o line-height="115%" p="#DEFAULT" style="font-size:18.0pt;font-family:Times New Roman,serif;"></o style="font-size:18.0pt;font-family:Times New Roman,serif;"></font></span>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;">Grupa 
+      221B<o line-height="115%" p="#DEFAULT" style="font-size:14.0pt;font-family:Times New Roman,serif;"></o style="font-size:14.0pt;font-family:Times New Roman,serif;"></font></span>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <b><font face="Times New Roman,serif" size="24.0pt" style="font-size:24.0pt;"><span lang="pl" line-height="115%" style="font-size:24.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-weight:bold;font-size:24.0pt;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-weight:bold;font-size:24.0pt;font-family:Times New Roman,serif;"></span></font></b>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <b><span lang="pl" line-height="115%" style="font-size:20.0pt;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="20.0pt" style="font-size:20.0pt;">Platforma 
+      zarz&#261;dzania cyfrow&#261; dystrybucj&#261; oprogramowania <o line-height="115%" p="#DEFAULT" style="font-weight:bold;font-size:20.0pt;font-family:Times New Roman,serif;"></o style="font-weight:bold;font-size:20.0pt;font-family:Times New Roman,serif;"></font></span></b>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;">Praca 
+      zaliczeniowa z przedmiotu<o line-height="115%" p="#DEFAULT" style="font-size:14.0pt;font-family:Times New Roman,serif;"></o style="font-size:14.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;">In&#380;ynieria 
+      Oprogramowania<o line-height="115%" p="#DEFAULT" style="font-size:14.0pt;font-family:Times New Roman,serif;"></o style="font-size:14.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;">napisana 
+      pod kierunkiem<o line-height="115%" p="#DEFAULT" style="font-size:14.0pt;font-family:Times New Roman,serif;"></o style="font-size:14.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <b><span background-image="null" background-position="null" style="background-color:white;background-repeat:repeat;color:#333333;background-attachment:scroll;"><font face="Times New Roman,serif" size="14.0pt" style="color:#333333;font-size:14.0pt;">dr 
+      in&#380;. Mykhaylo Fedorov</font></span><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;">&nbsp;</font></span></b><font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-size:14.0pt;font-family:Times New Roman,serif;"></o style="font-size:14.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      <font face="Times New Roman,serif" size="14.0pt" style="font-size:14.0pt;"><span lang="pl" line-height="115%" style="font-size:14.0pt;font-family:Times New Roman,serif;">w 
+      Katedrze In&#380;ynierii Oprogramowania </span></font><font face="Times New Roman,serif" size="24.0pt" style="font-size:24.0pt;"><span lang="pl" line-height="115%" style="font-size:24.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-size:24.0pt;font-family:Times New Roman,serif;"></o style="font-size:24.0pt;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;">
+      <font face="Times New Roman,serif" size="24.0pt" style="font-size:24.0pt;"><span lang="pl" line-height="115%" style="font-size:24.0pt;font-family:Times New Roman,serif;"><o line-height="115%" p="#DEFAULT" style="font-size:24.0pt;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-size:24.0pt;font-family:Times New Roman,serif;">&nbsp;</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;">
+      
+    </p>
+    <p align="center" class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:center;">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font size="20px" style="font-size:20px;">_______<a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a>_______ 
+      </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <span lang="pl" style="font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="20px" style="font-size:20px;">Platforma 
+      dystrybucji cyfrowej, &#322;&#261;cz&#261;ca w sobie sprzeda&#380; detaliczn&#261; oraz 
+      bibliotek&#281; aplikacji. </font></span><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" style="font-family:Times New Roman,serif;">Zapewnia 
+      bezpo&#347;rednie po&#322;&#261;czenie dewelopera z u&#380;ytkownikiem.</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      Gwarantuje deweloperowi pe&#322;ne wsparcie przy wydaniu aplikacji na 
+      platformie przy u&#380;yciu </span><span bgcolor="#ffff00" style="background-color:#ffff00;">konta</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      deweloperskiego. W celu u&#380;ytkownia platformy niezb&#281;dne jest </span><span bgcolor="#ffff00" style="background-color:#ffff00;">utworzenie 
+      konta</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      deweloperskiego lub </span><span bgcolor="#ffff00" style="background-color:#ffff00;">konta</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      u&#380;ytkownika poprzez Rejestracj&#281; do platformy a nast&#281;pnie </span><span bgcolor="#ffff00" style="background-color:#ffff00;">Zalogowanie 
+      si&#281;</span><span lang="pl" style="font-family:Times New Roman,serif;">. 
+      </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#00aaed" style="background-color:#00aaed;">Rejestracja</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Rejestracja</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      przebiega poprzez wype&#322;nienie formularza danymi: login, email, has&#322;o a 
+      tak&#380;e wybranie typu </span><span bgcolor="#ffff00" style="background-color:#ffff00;">konta</span><span lang="pl" style="font-family:Times New Roman,serif;">: 
+      </span><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_W54HLEaAyWSuJQgJ.html" name="">Deweloper</a></span><span lang="pl" style="font-family:Times New Roman,serif;">, 
+      </span><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_BbzorEaAyWSuJQpu.html" name="">U&#380;ytkownik</a></span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      oraz wybrania domy&#347;lnej waluty Portfela z trzech dost&#281;pnych: PLN, EUR, 
+      USD. </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#00aaed" style="background-color:#00aaed;">Logowanie</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Logowanie</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      przebiega poprzez wype&#322;nienie formularza danymi: login, has&#322;o a tak&#380;e 
+      wybranie typu </span><span bgcolor="#ffff00" style="background-color:#ffff00;">konta</span><span lang="pl" style="font-family:Times New Roman,serif;">: 
+      </span><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_W54HLEaAyWSuJQgJ.html" name="">Deweloper</a></span><span lang="pl" style="font-family:Times New Roman,serif;">, 
+      </span><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_BbzorEaAyWSuJQpu.html" name="">U&#380;ytkownik</a></span><span lang="pl" style="font-family:Times New Roman,serif;">. 
+      </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font size="20px" style="font-size:20px;">_______<a class="ItemLink" href="Glossary_W54HLEaAyWSuJQgJ.html" name="">Deweloper</a>_______ 
+      </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" style="font-family:Times New Roman,serif;">Po 
+      zalogowaniu do </span><span bgcolor="#00aaed" style="background-color:#00aaed;">panelu 
+      deweperskiego</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      tw&#243;rca ma do wyboru zak&#322;adki: </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Lista</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - pozwalaj&#261;ca na </span><span bgcolor="#ffff00" style="background-color:#ffff00;">wylistowanie</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      wydanych ju&#380; </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">produkt&#243;w</span><span lang="pl" style="font-family:Times New Roman,serif;">; 
+      </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Dodaj</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - pozwalaj&#261;ca na </span><span bgcolor="#ffff00" style="background-color:#ffff00;">dodanie 
+      produktu</span><span lang="pl" style="font-family:Times New Roman,serif;">; 
+      </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Edytuj</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - pozwala zmieni&#263; ustawione wcze&#347;niej opcje; </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Statystyki</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - pozwalaj&#261;ca na wy&#347;wietlenie og&#243;lnych statystyk sprzeda&#380;y; </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Wyp&#322;a&#263;</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - pozwalaj&#261;ca na </span><span bgcolor="#ffff00" style="background-color:#ffff00;">wyp&#322;acenie 
+      pieni&#281;dzy</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      z Portfela. </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#00aaed" style="background-color:#00aaed;">Lista</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      generuje list&#281; </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">produkt&#243;w</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      dodanych przez dewelopera i pozwala na edycj&#281; lub wy&#347;wietlenie statystyk 
+      wybranego. Edycja polega na ponownym wype&#322;nieniu formularza z polami: 
+      cena i opis. </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Statystyki</span><span lang="pl" style="font-family:Times New Roman,serif;">&nbsp;</span><span bgcolor="#ffff00" style="background-color:#ffff00;">generowane</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      s&#261; dla wybranego z listy produktu i zawieraj&#261;</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      dziennn&#261;, miesieczn&#261; lub roczn&#261;: ilo&#347;&#263; sprzeda&#380;y, doch&#243;d ze sprzeda&#380;y a 
+      tak&#380;e obecn&#261; </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">ocen&#281; 
+      spo&#322;eczno&#347;ci</span><span lang="pl" style="font-family:Times New Roman,serif;">. 
+      </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#00aaed" style="background-color:#00aaed;">Dodaj</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span bgcolor="#ffff00" style="background-color:#ffff00;">Dodanie 
+      produktu</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      przebiega poprzez wype&#322;nienie formularza dost&#281;pnego po zalogowaniu do 
+      panelu dewelopera. Dane jakie musi poda&#263; </span><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_W54HLEaAyWSuJQgJ.html" name="">Deweloper</a></span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      w formularzu to: Nazwa, Cena (w walucie domy&#347;lnej) i Opis, a tak&#380;e </span><span bgcolor="#ffff00" style="background-color:#ffff00;">za&#322;&#261;czy&#263; 
+      plik</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      wykonywalny. Opis zawiera opis dodany przez dewelopera a tak&#380;e </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">ocen&#281; 
+      spo&#322;eczno&#347;ci</span><span lang="pl" style="font-family:Times New Roman,serif;">.</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#00aaed" style="background-color:#00aaed;">Edytuj</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span lang="pl" style="font-family:Times New Roman,serif;">Edytowanie 
+      produktu przebiega poprzez wype&#322;nienie formularza z danymi: Cena (w 
+      walucie domy&#347;lnej) i Opis.</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#00aaed" style="background-color:#00aaed;">Statystyki</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span lang="pl" style="font-family:Times New Roman,serif;"><a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      generuje </span><span bgcolor="#00aaed" style="background-color:#00aaed;">statystyki</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      dotycz&#261;ce og&#243;lnej sprzeda&#380;y. Statystki te zawieraja dziennn&#261;, miesieczn&#261; 
+      lub roczn&#261;: ilo&#347;&#263; sprzeda&#380;y, doch&#243;d ze sprzeda&#380;y wszystkich </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">produkt&#243;w</span><span lang="pl" style="font-family:Times New Roman,serif;">. 
+      Statyski te dost&#281;pne s&#261; tylko dla dewelopera. </span><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_W54HLEaAyWSuJQgJ.html" name="">Deweloper</a></span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      uzyskuje do nich dost&#281;p, z listy aktualnie wystawionych na sprzeda&#380; </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">produkt&#243;w</span><span lang="pl" style="font-family:Times New Roman,serif;">. 
+      Ka&#380;dy wystawiony produkt posiada </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">w&#322;asn&#261; 
+      statystyk&#281;</span><span lang="pl" style="font-family:Times New Roman,serif;">.</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#00aaed" style="background-color:#00aaed;">Wyp&#322;a&#263;</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      wy&#347;wietla aktualny stan portfela w domy&#347;lnej walucie, a tak&#380;e pole 
+      formularza do podania kwoty ewentualnej wyp&#322;aty i przycisk zatwierdzenia 
+      wyp&#322;aty. </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font size="20px" style="font-size:20px;">_______<a class="ItemLink" href="Glossary_BbzorEaAyWSuJQpu.html" name="">U&#380;ytkownik</a>_______ 
+      </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_BbzorEaAyWSuJQpu.html" name="">U&#380;ytkownik</a></span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      po zalogowaniu poprzez platform&#281; posiada mo&#380;liwo&#347;&#263; zakupu produktu, 
+      zainstalowania i zarz&#261;dzania nim, poprzez panel u&#380;ytkownika. <o p="#DEFAULT" style="font-size:20px;font-family:Times New Roman,serif;"></o style="font-size:20px;font-family:Times New Roman,serif;">Po 
+      zalogowaniu , </span><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_BbzorEaAyWSuJQpu.html" name="">U&#380;ytkownik</a></span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      ma do wyboru trzy zak&#322;adki: </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Biblioteka</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span bgcolor="#00aaed" style="background-color:#00aaed;">lista</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      obecnie posiadanych </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">produkt&#243;w</span><span lang="pl" style="font-family:Times New Roman,serif;">; 
+      </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Sklep</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span bgcolor="#00aaed" style="background-color:#00aaed;">lista</span><span lang="pl" style="font-family:Times New Roman,serif;">&nbsp;</span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">produkt&#243;w</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      dost&#281;pnch do zakupu; </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Do&#322;aduj</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - pozwala na dodanie pieni&#281;dzy do Portfela. </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#00aaed" style="background-color:#00aaed;">Biblioteka</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      generuje list&#281; zakupionych przez u&#380;ytkownika </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">produkt&#243;w</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      z rozr&#243;&#380;nieniem na statusy: Niezainstalowane lub </span><span lang="pl" style="font-family:Times New Roman,serif;">Zainstalowane</span><span lang="pl" style="font-family:Times New Roman,serif;">. 
+      Przy produkcie o statusie Niezainstalowane widnieje opcja </span><span bgcolor="#ffff00" style="background-color:#ffff00;">Zainstaluj</span><span lang="pl" style="font-family:Times New Roman,serif;">. 
+      Przy produkcie o statusie Zainstalowane wideniej&#261; opcje: </span><span bgcolor="#ffff00" style="background-color:#ffff00;">W&#322;&#261;cz</span><span lang="pl" style="font-family:Times New Roman,serif;">, 
+      </span><span bgcolor="#ffff00" style="background-color:#ffff00;">Odinstaluj</span><span lang="pl" style="font-family:Times New Roman,serif;">, 
+      </span><span bgcolor="#ffff00" style="background-color:#ffff00;">Oce&#324;</span><span lang="pl" style="font-family:Times New Roman,serif;">. 
+      </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#00aaed" style="background-color:#00aaed;">Sklep</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      generuje list&#281; dost&#281;pnych do </span><span bgcolor="#ffff00" style="background-color:#ffff00;">zakupu 
+      produkt&#243;w</span><span lang="pl" style="font-family:Times New Roman,serif;">. 
+      Przy ka&#380;dym produkcie widniej&#261; opcje: Kup, Cena, Opis, Obserwuj. Opcja 
+      Cena jest przewalutowana do waluty domy&#347;lnej u&#380;ytkownika, Opcja Opis 
+      zawiera w sobie opis dodany przez dewelopera,, a tak&#380;e </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">ocen&#281; 
+      spo&#322;eczno&#347;ci</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      wystawiana przez u&#380;ytkownik&#243;w, Opcja </span><span bgcolor="#ffff00" style="background-color:#ffff00;">Obseruj</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      pozwala na </span><span bgcolor="#ffff00" style="background-color:#ffff00;">dodanie 
+      produktu</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      do obserwowanych, co wymusza pierwsze&#324;stwo w wy&#347;wietlaniu go na li&#347;cie 
+      sklepowej. </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#00aaed" style="background-color:#00aaed;">Do&#322;aduj</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span lang="pl" style="font-family:Times New Roman,serif;"><a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      wy&#347;wietla aktualny stan portfela w domy&#347;lnej walucie, a tak&#380;e pole 
+      formularza do podania kwoty ewentualnej wp&#322;aty i przycisk zatwierdzenia 
+      wp&#322;aty.</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" style="font-family:Times New Roman,serif;"><o p="#DEFAULT" style="font-size:20px;font-family:Times New Roman,serif;">
+      </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font size="20px" style="font-size:20px;">_______<a class="ItemLink" href="Glossary_H2c0rEaAyWSuJQrE.html" name="">Portfel</a>_______ 
+      </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Weryfikacja 
+      p&#322;atno&#347;ci</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      weryfikuje czy </span><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_BbzorEaAyWSuJQpu.html" name="">U&#380;ytkownik</a></span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      posiada </span><span lang="pl" style="font-family:Times New Roman,serif;">wystarczaj&#261;c&#261; 
+      ilo&#347;&#263; &#347;rodk&#243;w w Portfelup, a tak&#380;e czy kupowany produkt nie znajduje sie 
+      ju&#380; w Bibliotece u&#380;ytkownika. W przypadku braku przeciwskaza&#324; do zakupu 
+      zatwierdza transakcj&#281;. W przeciwnym razie odrzuca j&#261; i wy&#347;wietla 
+      odpowiedni komunikat.</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Weryfikacja 
+      do&#322;adowania</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span lang="pl" style="font-family:Times New Roman,serif;"><a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      weryfikuje czy kwota zosta&#322;a zaksi&#281;gowana i odpowiada kwocie podanej 
+      przez </span><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_BbzorEaAyWSuJQpu.html" name="">U&#380;ytkownik</a></span><span lang="pl" style="font-family:Times New Roman,serif;">.</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      W przypadku poprawnego zaksi&#281;gowania <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      do&#322;adowuje <a class="ItemLink" href="Glossary_H2c0rEaAyWSuJQrE.html" name="">Portfel</a> 
+      i ko&#324;czy operacj&#281;. W przeciwnym razie odrzuca j&#261; i wy&#347;wietla odpowiedni 
+      komunikat.</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Weryfikacja 
+      wyp&#322;aty</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span lang="pl" style="font-family:Times New Roman,serif;"><a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      weryfikuje czy </span><span bgcolor="#90cb48" style="background-color:#90cb48;"><a class="ItemLink" href="Glossary_W54HLEaAyWSuJQgJ.html" name="">Deweloper</a></span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      posiada </span><span lang="pl" style="font-family:Times New Roman,serif;">wystarczaj&#261;c&#261; 
+      ilo&#347;&#263; &#347;rodk&#243;w w </span><span bgcolor="#ffff00" style="background-color:#ffff00;">Portfelu</span><span lang="pl" style="font-family:Times New Roman,serif;">.</span><span lang="pl" style="font-family:Times New Roman,serif;">W 
+      przypadku braku przeciwskaza&#324; do wyp&#322;aty zatwierdza transakcj&#281;. W 
+      przeciwnym razie odrzuca j&#261; i wy&#347;wietla odpowiedni komunikat.</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Przewalutowanie</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      dostosowuje ceny </span><span bgcolor="#bb4dff" style="background-color:#bb4dff;">produkt&#243;w</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      w Sklepie do domy&#347;lnej waluty u&#380;ytkownika. </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Do&#322;adowanie 
+      portfela</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      dodaje odpowiedni&#261; ilo&#347;c pieni&#281;dzy do portfela po pozytywnym przej&#347;ciu 
+      weryfikacji do&#322;adowania. </span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Wyp&#322;acenie 
+      z portfela</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+      - </span><span lang="pl" style="font-family:Times New Roman,serif;"><a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      odejmuje odpowiedni&#261; ilo&#347;c pieni&#281;dzy z portfela po pozytywnym przej&#347;ciu 
+      weryfikacji wyp&#322;aty.</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font size="20px" style="font-size:20px;">_______<a class="ItemLink" href="Glossary_waNoAkaAyWSuJQhP.html" name="">Baza 
+      danych</a>_______ </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Pobierz 
+      produkty</span> - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      wysy&#322;a zapytanie do bazy danych o list&#281; konkrenych <span bgcolor="#bb4dff" style="background-color:#bb4dff;">produkt&#243;w</span>. 
+      </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Dodaj 
+      produkt do systemu</span> - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      dodaje do bazy danych nowy produkt. </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Dodaj 
+      konto</span> - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      dodaje do bazy danych nowe konto. </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Dodaj 
+      produkt do konta</span> - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      przypisuje do konkretnego <span bgcolor="#ffff00" style="background-color:#ffff00;">konta</span> 
+      dany produkt. </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Pobierz 
+      konto</span> - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      wysy&#322;a zapytanie do bazy danych o informacje o koncie.</font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font size="20px" style="font-size:20px;">_____<a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      c.d._______ </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Wy&#347;wietlanie 
+      komunikatu</span> - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      generuje stosowny komunikat do wykonanej akcji. </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Weryfikacja 
+      zalogowania</span> - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      weryfikuje poprawno&#347;&#263; danych logowania. Po poprawnej weryfikacji loguje 
+      do odpowiedniego panelu, w przeciwnym razie przerywa akcje i wy&#347;wietla 
+      stosowny komunikat. </font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      <font face="Times New Roman" size="20px" style="font-size:20px;"><span bgcolor="#ffff00" style="background-color:#ffff00;">Wylistowanie</span> 
+      - <a class="ItemLink" href="Glossary_FR1YrEaAyWSuJQqX.html" name="">System</a> 
+      listuje pobrane z bazy danych produkty w zale&#380;no&#347;ci od wybranej opcji: <span bgcolor="#00aaed" style="background-color:#00aaed;">Sklep</span>, 
+      <span bgcolor="#00aaed" style="background-color:#00aaed;">Biblioteka</span>, 
+      <span bgcolor="#00aaed" style="background-color:#00aaed;">Lista</span>.</font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;" text-indent="36.0pt">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" style="font-family:Times New Roman,serif;"><o p="#DEFAULT" style="font-size:20px;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-size:20px;font-family:Times New Roman,serif;"></span><b><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;">Przyk&#322;adowe 
+      scenariusze </span></b></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><u>Zakup 
+      produktu</u>&nbsp;</font></span>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <span bgcolor="#90cb48" style="background-color:#90cb48;"><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><a class="ItemLink" href="Glossary_BbzorEaAyWSuJQpu.html" name="">U&#380;ytkownik</a></font></span><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;"> 
+      po w&#322;&#261;czeniu aplikacji loguje si&#281; do </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Panelu 
+      U&#380;ytkownika</span><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;"> 
+      wcze&#347;niej utworzonym kontem. Prze&#322;&#261;cza na zak&#322;adk&#281; </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Sklep</span><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;">, 
+      wyszukuje interesuj&#261;cy go produkt, a nast&#281;pnie wybiera opcj&#281; Kup. Po 
+      poprawnym zweryfikowaniu p&#322;atno&#347;ci, produkt zostaje do&#322;&#261;czony do 
+      biblioteki u&#380;ytkownika ze statusem gotowo&#347;ci do zainstalowania. W 
+      przypadku negatywnego zweryfikowania p&#322;atno&#347;ci spowodowanego brakiem 
+      pieni&#281;dzy w </span><span bgcolor="#ffff00" style="background-color:#ffff00;">portfelu</span><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;"> 
+      lub posiadaniem ju&#380; danego produktu w bibliotece, operacja zostaje 
+      przerwana i wy&#347;wietlony zostaje odpowiedni komunikat.</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" style="font-family:Times New Roman,serif;"><o p="#DEFAULT" style="font-size:20px;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-size:20px;font-family:Times New Roman,serif;">&nbsp;</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <span bgcolor="#ffff00" style="background-color:#ffff00;"><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><u>Dodanie 
+      produktu</u></font></span><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;">&nbsp;</span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <span bgcolor="#90cb48" style="background-color:#90cb48;"><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><a class="ItemLink" href="Glossary_W54HLEaAyWSuJQgJ.html" name="">Deweloper</a></font></span><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;"> 
+      po w&#322;&#261;czeniu aplikacji loguje si&#281; do Panelu Dewelopera wcze&#347;niej 
+      utworzonym kontem. Prze&#322;&#261;cza na zak&#322;adk&#281; </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Dodaj</span><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;">, 
+      a nast&#281;pnie wype&#322;nia formularz, w kt&#243;rym podaje: nazw&#281; produktu, cen&#281;, 
+      opis a tak&#380;e wgrywa ko&#324;cowy produkt. </span></font><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" style="font-family:Times New Roman,serif;">Po 
+      zatwierdzeniu, produkt pojawia sie w Sklepie, dost&#281;pny do zakupu przez 
+      u&#380;ytkownika.&nbsp;</o style="font-size:20px;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" style="font-family:Times New Roman,serif;"><o p="#DEFAULT" style="font-size:20px;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-size:20px;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;"><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><u>Wyp&#322;acenie 
+      &#347;rodk&#243;w z portfela</u></font></span>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <span bgcolor="#90cb48" style="background-color:#90cb48;"><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><a class="ItemLink" href="Glossary_W54HLEaAyWSuJQgJ.html" name="">Deweloper</a></font></span><font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;"> 
+      po w&#322;&#261;czeniu aplikacji loguje si&#281; do Panelu Dewelopera wcze&#347;niej 
+      utworzonym kontem. Prze&#322;&#261;cza na zak&#322;adk&#281; </span><span bgcolor="#00aaed" style="background-color:#00aaed;">Wyp&#322;a&#263;</span><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;">, 
+      a nastepnie w polu formularza</span></font>
+    </p>
+    <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" style="font-family:Times New Roman,serif;">&nbsp;wprowadza 
+    kwot&#281; pieni&#281;dzy i zatwierdza przyciskiem. Je&#380;eli w </span><span bgcolor="#ffff00" style="background-color:#ffff00;">portfelu</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+    jest wystarczaj&#261;ca ilo&#347;&#263; &#347;rodk&#243;w </span><span bgcolor="#ffff00" style="background-color:#ffff00;">weryfikacja 
+    wyp&#322;aty</span><span lang="pl" style="font-family:Times New Roman,serif;"> 
+    ko&#324;czy si&#281; powodzeniem, &#347;rodki zostaj&#261; wyp&#322;acone, a <a class="ItemLink" href="Glossary_H2c0rEaAyWSuJQrE.html" name="">Portfel</a> 
+    zostaje pomniejszony o podan&#261; kwot&#281;. W przeciwnym razie<o p="#DEFAULT" style="font-size:20px;font-family:Times New Roman,serif;">&nbsp;</span><span lang="pl" line-height="115%" style="font-size:20px;font-family:Times New Roman,serif;"> 
+    operacja zostaje przerwana i wy&#347;wietlony zostaje odpowiedni komunikat.</span></font>
+
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <font face="Times New Roman,serif" size="20px" style="font-size:20px;"><span lang="pl" style="font-family:Times New Roman,serif;"><o p="#DEFAULT" style="font-size:20px;font-family:Times New Roman,serif;">
+      &nbsp;</o style="font-size:20px;font-family:Times New Roman,serif;"></span></font>
+    </p>
+    <p class="MsoNormal" style="margin-top:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-right:0pt;text-align:justify;">
+      <font face="Times New Roman,serif"><span lang="pl" style="font-family:Times New Roman,serif;"><o p="#DEFAULT" style="font-family:Times New Roman,serif;">
+</span></font>    </p>
+  </body></span>			</td>
+		</tr>
+		<tr>
+			<td class="TableHeaderLine2">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+Candidate items			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="12" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="12" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="25%">
+<span class="TableHeaderText">Candidate Class</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Extracted Text</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Occurrence</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Highlight</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="12" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+<a href="Glossary_H2c0rEaAyWSuJQrE.html" class="ItemLink">Portfel</a>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Portfelu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+3			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Konto			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+konta			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+5			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Obserwuj produkt			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Obseruj			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Użytkownik dodaje produkt do obserwowanych.			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Rejestracja			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Rejestracja			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zakładka tworzenia konta odpowiedniego typu
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+2			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Logowanie			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Logowanie			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zakładka logowania do odpowiedniego panelu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+2			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+<a href="Glossary_W54HLEaAyWSuJQgJ.html" class="ItemLink">Deweloper</a>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+<a href="Glossary_W54HLEaAyWSuJQgJ.html" class="ItemLink">Deweloper</a>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Actor</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Twórca oprogramowania, wydawca			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+7			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #90cb48; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+<a href="Glossary_BbzorEaAyWSuJQpu.html" class="ItemLink">Użytkownik</a>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+<a href="Glossary_BbzorEaAyWSuJQpu.html" class="ItemLink">Użytkownik</a>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Actor</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Konsument, klient końcowy			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+7			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #90cb48; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Panel użytkownika			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+panelu użytkownika			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Główny panel zarządzania kontem użytkownika			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Panel dewepera			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+panelu deweperskiego			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Główny panel zarządzania kontem dewelopera			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Lista			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Lista			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zakładka Lista produktów w panelu dewelopera			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+5			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Dodanie produktu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Dodaj			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zakładka Dodaj produkt w panelu dewelopera			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+3			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Edytowanie			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Edytuj			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zakładka Edycja produktu w panelu dewelopera			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+2			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Statystyki			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Statystyki			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zakładka Statystyki ogólne produktów w panelu dewelopera
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+4			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Wypłacanie			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Wypłać			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zakładka Wypłać pieniądze  w panelu dewelopera			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+3			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Biblioteka			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Biblioteka			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zakładka Biblioteka produktów w panelu użytkownika			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+3			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Sklep			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Sklep			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zakładka Sklep produktów  w panelu użytkownika			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+4			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Doładowanie			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Doładuj			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Class</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zakładka Doładuj pieniądze  w panelu użytkownika			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+2			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #00aaed; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Weryfikuj wypłatę			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Weryfikacja wypłaty			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Portfel sprawdza powodzenie wypłaty			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+2			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Weryfikuj doładowanie			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Weryfikacja doładowania			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Portfel sprawdza powodzenia doładowania
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Weryfikuj płatność			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Weryfikacja płatności			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Portfel sprawdza powodzenie płatności			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Weryfikuj zalogowanie			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Weryfikacja zalogowania			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System weryfikuje poprawność danych wprowadzonych przez użytkownika/dewelopera z danymi o koncie pobranymi z bazy danych			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Wyświetl komunikat			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Wyświetlanie komunikatu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System wyświetla komunikat stosowny do wykonanej akcji			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Wylistuj			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Wylistowanie			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System wyświetla pobraną z bazy danych listę produktów			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+2			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Dodaj produkt			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+dodanie produktu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System dodaje produkt do sklepu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+4			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Wypłać pieniądze			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+wypłacenie pieniędzy			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System wypłaca pieniądze z portfela dewelopera			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Wygeneruj statystyki			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+generowane			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System generuje statystyki na podstawie danych popranych z bazy danych			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Pobierz załącznik			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+załączyć plik			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System pobiera produkt i dodaje do bazy danych			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Ocena społeczności			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+ocenę społeczności			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Package.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Package.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Package</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Ocena społeczności produktu w bazie danych			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+3			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #bb4dff; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Statystyka indywidualna			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+własną statystykę			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Package.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Package.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Package</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Statystyka indywidualna w bazie danych
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #bb4dff; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Zainstaluj produkt			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zainstaluj			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Uzytkownik dodaje produkt na urządzeniu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Włącz produkt			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Włącz			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Użytkownik włącza produkt na urządzeniu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Odinstaluj produkt			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Odinstaluj			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Użytkownik usuwa produkt z urządzenia			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Oceń produkt			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Oceń			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Użytkownik dodaje ocenę produktu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Przewalutuj			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Przewalutowanie			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System dostosowuje ceny w sklepie do domyślnej waluty użytkownika			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Kup produkt			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+zakupu produktów			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System dodaje produkt do biblioteki użytkownika			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Dodaj środki do portfela			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Doładowanie portfela			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System dodaje środki do portfela
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Odejmij środki z portfela			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Wypłacenie z portfela			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System odejmuje środki z portfela
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Produkt			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+produktów			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Package.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Package.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Package</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Produkt, rekord w bazie danych
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+9			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #bb4dff; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Zajerejstruj się			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+utworzenie konta			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System tworzy konto dewelopera/użytkownika
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Zaloguj się			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Zalogowanie się			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+System loguje dewelopera/użytkownika do odpowiedniego panelu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Pobierz produkty z bazy danych			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Pobierz produkty			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Baza danych zwraca konkretną liste produktów
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Dodaj produkt do systemu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Dodaj produkt do systemu			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Baza danych wprowadza nowy produkt do systemu
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Dodaj konto			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Dodaj konto			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Baza danych wprowadza nowego użytkownika/dewelopera
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td class="TableContent">
+Dodaj produkt do konta			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Dodaj produkt do konta			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Baza danych edytuje dane użytkownika/dewelopera przypisując nowy produkt			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td class="TableContent">
+Pobierz konto			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Pobierz konto			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <span style="line-height: 18px">Use Case</span>				</span>
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Baza danych zwraca informacje o  koncie uzytkownika/dewelopera			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+1			</td>
+			<td>
+			</td>
+			<td>
+				<div style="background: #ffff00; line-height: 12px; margin: 3px;">
+&nbsp;				</div>
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		IO	</div>
+</body>
+</html>
